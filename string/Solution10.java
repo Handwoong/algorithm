@@ -4,37 +4,31 @@ import java.util.*;
  * 10. 가장 짧은 문자거리
  */
 public class Solution10 {
-    public String solution(String str, char c) {
+    public int[] solution(String str, char c) {
         int[] answer = new int[str.length()];
-        List<Integer> targetList = new ArrayList<>();
+	int p = 1000;
 
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == c) {
-                targetList.add(i);
-            }
-        }
+	for (int i = 0; i < str.length(); i++) {
+		if (str.charAt(i) == c) {
+			p = 0;
+		} else {
+			p++;
+		}
+		answer[i] = p;
+	}
 
-        for (int i = 0; i < str.length(); i++) {
-            int temp = -1;
-            for (Integer j : targetList) {
-                int d = Math.abs(j - i);
-                if (temp == -1) {
-                    temp = d;
-                    continue;
-                }
+	p = 1000;
+	for (int i = str.length() - 1; i >= 0; i--) {
+		if (str.charAt(i) == c) {
+			p = 0;
+		} else {
+			p++;
+		}
+		
+		answer[i] = Math.min(answer[i], p);
+	}
 
-                if (temp > d) {
-                    temp = d;
-                }
-            }
-            answer[i] = temp;
-        }
-
-        StringBuilder sb = new StringBuilder();
-        for (int i : answer) {
-            sb.append(i + " ");
-        }
-        return sb.toString().trim();
+        return answer;
     }
 
     public static void main(String args[]) {
@@ -43,7 +37,9 @@ public class Solution10 {
 
         String str = sc.next();
         char c = sc.next().charAt(0);
-        
-        System.out.print(S.solution(str, c));
+    
+	for (int x : S.solution(str, c)) {
+		System.out.print(x + " ");
+	}
     }
 }
