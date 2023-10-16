@@ -5,23 +5,27 @@ public class Solution01 {
 		Solution01 S = new Solution01();
 		Scanner sc = new Scanner(System.in);
 		int my = sc.nextInt();
-		sc.nextLine();
-		String target = sc.nextLine();
-		System.out.print(S.solution(my, target));
+		int[] arr = new int[my];
+		for (int i = 0; i < my; i++) {
+			arr[i] = sc.nextInt();
+		}
+
+		System.out.print(S.solution(my, arr));
 	}
 
-	public String solution(int my, String target) {
+	public String solution(int my, int[] target) {
 		String answer = "";
 		StringBuilder sb = new StringBuilder();
-		String[] targetArr = target.split(" ");
 
-		for (String s : targetArr) {
-			int temp = Integer.parseInt(s);
-			if (my <= temp) {
-				sb.append(temp + " ");
+		int temp = target[0];
+		sb.append(target[0] + " ");
+		for (int i = 1; i < my; i++) {
+			if (temp < target[i]) {
+				sb.append(target[i] + " ");
 			}
+			temp = target[i];
 		}
-		answer = sb.toString();
+		answer = sb.toString().trim();
 		return answer;
 	}
 }
